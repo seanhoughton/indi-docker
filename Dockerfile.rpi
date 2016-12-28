@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y cdbs libcfitsio3-dev libnova-dev libusb
 
 ADD http://www.indilib.org/download/raspberry-pi/send/6-raspberry-pi/9-indi-library-for-raspberry-pi.html /tmp/libindi.tgz
 RUN cd /tmp && tar xvfz libindi.tgz
-RUN cd /tmp/libindi_1.3.1_rpi && dpkg -i *.deb
+RUN cd /tmp/libindi_1.3.1_rpi && dpkg -i *.deb && rm -r /tmp/libindi_1.3.1_rpi
 
 EXPOSE 7624
 ENTRYPOINT ["/usr/bin/indiserver", "-v"]
