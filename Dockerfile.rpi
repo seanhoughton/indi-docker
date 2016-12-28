@@ -1,0 +1,12 @@
+FROM resin/rpi-raspbian:jessie-20161216
+MAINTAINER Sean Houghton "sean.houghton@gmail.com"
+
+RUN apt-get update && apt-get install -y cdbs libcfitsio3-dev libnova-dev libusb-1.0-0-dev libjpeg-dev libusb-dev libtiff5-dev libftdi-dev fxload libkrb5-dev libcurl4-gnutls-dev libraw-dev libgphoto2-dev libgsl0-dev dkms libboost-regex-dev libgps-dev libdc1394-22-dev
+
+ADD http://www.indilib.org/download/raspberry-pi/send/6-raspberry-pi/9-indi-library-for-raspberry-pi.html /tmp/libindi.tgz
+RUN cd /tmp && tar xvfz libindi.tgz
+RUN cd /tmp/libindi_1.3.1_rpi && dpkg -i *.deb
+
+EXPOSE 7624
+ENTRYPOINT ["/usr/bin/indiserver", "-v"]
+CMD ["indi_watchdog", "indi_simulator_ccd", "indi_simulator_dome", "indi_simulator_telescope"]

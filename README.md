@@ -2,6 +2,13 @@
 
 Runs the INDI server with the requested set of drivers. See [INDI](http://indilib.org/) for more information about the INDI telescope control project.
 
+Dockerfiles are included for both x86 (linux) and Raspian base images. To build the images use
+
+    make rpi_image
+    make x86_image
+
+
+
 |Variable|Description|
 |---|---|
 |INDI_DRIVERS|Space separated list of drivers to run|
