@@ -11,13 +11,13 @@ else
     DOCKERFILE=Dockerfile.x86
 endif
 
-.PHONY: image
+.PHONY: image push run
 default: image
 
 image:
 	docker build -t $(NAMESPACE)/$(NAME):$(TAG) -f $(DOCKERFILE) .
 
-push:
+push: image
 	docker push $(NAMESPACE)/$(NAME):$(TAG)
-sbig:
-	docker run --privileged -v /dev/bus/usb:/dev/bus/usb -d -p 7624:7624 $(NAMESPACE)/$(NAME):$(TAG) indi_sbig_ccd
+
+
