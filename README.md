@@ -23,7 +23,7 @@ Run real drivers (don't forget the `--privileged` flag to allow access to usb de
 
     sudo docker run --privileged -v /dev/bus/usb:/dev/bus/usb -d -p 7624:7624 seanhoughton/indiserver:1.3.1 indi_sbig_ccd indi_lx200gemini
 
-Or, use docker-compose to make it easier to manage. Note that settings are stored in a named (aka persistent) volume named "config" that will persist accross container restarts. You could also map this to a directory.
+Or, use docker-compose to make it easier to manage. Note that settings are stored in a named (aka persistent) volume named "config" that will persist accross container restarts. You could also map this to a directory. Also, you may have to modify the device volumes based on your specific hardware setup.
 
     # docker-compose.yml
     version: '2'
