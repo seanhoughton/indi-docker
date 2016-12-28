@@ -20,4 +20,4 @@ image:
 push:
 	docker push $(NAMESPACE)/$(NAME):$(TAG)
 sbig:
-	docker run --privileged -v /dev/bus/usb:/dev/bus/usb -d -p 7624:7624 seanhoughton/indiserver:1.3.1 indi_sbig_ccd
+	docker run --privileged -v /dev/bus/usb:/dev/bus/usb -d -p 7624:7624 $(NAMESPACE)/$(NAME):$(TAG) indi_sbig_ccd
