@@ -3,11 +3,11 @@ NAMESPACE=seanhoughton
 TAG=$(VERSION)
 UNAME_A=$(shell uname -a)
 
-ifneq (,$(findstring raspberrypi,$(UNAME_A)))
+ifneq (,$(findstring armv,$(UNAME_A)))
     NAME=rpi-indiserver
     DOCKERFILE=Dockerfile.rpi
     DRIVERS_TO_INSTALL=libsbigudrv2_2.1.1_armhf.deb libqhy_0.1.8_armhf.deb
-    IMAGE_DEPS=ibindi-rpi.tgz
+    IMAGE_DEPS=libindi-rpi.tgz
 else
     NAME=indiserver
     DOCKERFILE=Dockerfile.x86
