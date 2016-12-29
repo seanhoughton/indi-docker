@@ -2,34 +2,9 @@
 
 Runs the INDI server with the requested set of drivers. See [INDI](http://indilib.org/) for more information about the INDI telescope control project.
 
-
-## Why use Docker?
-
-Running services in docker provides some nice benefits
-
-* Easy upgrade/downgrade - simply adjust the version number of the image you want to run
-* Easy service management - if the server process stops for any reason Docker will restart it, including reboots
-* Minimal setup - just install docker and go, no need to install anything related to indi (firmware loading drivers currently *do* need to be installed on the host)
-* Reproducability - if you're having problems a developer can more easily reproduce it in a public container 
-
-## Setup
-
-The Makefile includes a `bootstrap` target which installs docker and any hardware drivers. You can customize the `DRIVERS_TO_INSTALL` value in the makefile. Currently the drivers must be installed on the host because the udev firmware loading rules don't work correctly inside of containers.
-
-    make bootstrap
-
-
-## Building the image (optional)
-
-Dockerfiles are included for both x86 (linux) and Raspian base images. To build the images run `make`
-
-    make image
-
 ## Running the containers
 
-Ensure you've installed the required device drivers for your hardware on the host. For Raspbian users there is a makefile target to help automate this step. You only need to install the base drivers that install firmware (e.g. libsbigudrv2), there is no need to install any of the indi packages.
-
-#### Examples
+Ensure you've installed the required device drivers for your hardware on the host. You only need to install the base drivers that install firmware (e.g. libsbigudrv2, libqhy, etc.), there is no need to install any of the indi packages.
 
 *note: the containers run as root to easily get access to USB and TTY devices, more fine-grained permissions for the `pi` user is left as an excercise for the reader*
 
@@ -64,6 +39,33 @@ Or, use docker-compose to make it easier to manage. Note that settings are store
 Then run the stack with
 
     sudo docker-compose up -d
+
+
+
+You can run the basic 
+
+
+## Why use Docker?
+
+Running services in docker provides some nice benefits
+
+* Easy upgrade/downgrade - simply adjust the version number of the image you want to run
+* Easy service management - if the server process stops for any reason Docker will restart it, including reboots
+* Minimal setup - just install docker and go, no need to install anything related to indi (firmware loading drivers currently *do* need to be installed on the host)
+* Reproducability - if you're having problems a developer can more easily reproduce it in a public container 
+
+## Setup
+
+The Makefile includes a `bootstrap` target which installs docker and any hardware drivers. You can customize the `DRIVERS_TO_INSTALL` value in the makefile. Currently the drivers must be installed on the host because the udev firmware loading rules don't work correctly inside of containers.
+
+    make bootstrap
+
+
+## Building the image (optional)
+
+Dockerfiles are included for both x86 (linux) and Raspian base images. To build the images run `make`
+
+    make image
 
 
 
