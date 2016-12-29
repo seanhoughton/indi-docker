@@ -10,9 +10,10 @@ ifneq (,$(findstring raspberrypi,$(UNAME_A)))
 else
     NAME=indiserver
     DOCKERFILE=Dockerfile.x86
+    DRIVERS_TO_INSTALL=libsbigudrv2 libqhy
 endif
 
-.PHONY: image push installdrivers-rpi
+.PHONY: image push installdrivers-rpi rpi-indiserver-bootstrap indiserver-bootstrap bootstrap
 default: image
 
 
@@ -26,7 +27,12 @@ image: libindi-rpi.tgz
 push: image
 	docker push $(NAMESPACE)/$(NAME):$(TAG)
 
-bootstrap-rpi: libindi-rpi.tgz
+rpi-indiserver-bootstrap: libindi-rpi.tgz
 	sudo apt-get update && sudo apt-get install -y docker-engine fxload
 	tar -C /tmp -xzf libindi-rpi.tgz
 	cd /tmp/libindi_$(VERSION)_rpi && sudo dpkg -i $(DRIVERS_TO_INSTALL) && rm -r /tmp/libindi_$(VERSION)_rpi
+
+indiserver-bootstrap:
+	sudo apt-get update && sudo apt-get install -y docker-engine fxload $(DRIVERS_TO_INSTALL)
+
+bootstrap: $(NAME)-bootstrap
