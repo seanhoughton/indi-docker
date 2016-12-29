@@ -7,6 +7,7 @@ ifneq (,$(findstring raspberrypi,$(UNAME_A)))
     NAME=rpi-indiserver
     DOCKERFILE=Dockerfile.rpi
     DRIVERS_TO_INSTALL=libsbigudrv2_2.1.1_armhf.deb libqhy_0.1.8_armhf.deb
+    IMAGE_DEPS=ibindi-rpi.tgz
 else
     NAME=indiserver
     DOCKERFILE=Dockerfile.x86
@@ -21,7 +22,7 @@ libindi-rpi.tgz:
 	# note: the version isn't part of the URL so this might not always work...
 	curl http://indilib.org/download/raspberry-pi/send/6-raspberry-pi/9-indi-library-for-raspberry-pi.html > libindi-rpi.tgz
 
-image: libindi-rpi.tgz
+image: $(IMAGE_DEPS)
 	docker build -t $(NAMESPACE)/$(NAME):$(TAG) -f $(DOCKERFILE) .
 
 push: image
