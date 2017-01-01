@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 		libboost-regex-dev \
 		libcfitsio3-dev \
 		libcurl4-gnutls-dev \
-		libdc1394-22- \
+		libdc1394-22-dev \
 		libftdi-dev \
 		libgphoto2-dev \
 		libgps-dev \
