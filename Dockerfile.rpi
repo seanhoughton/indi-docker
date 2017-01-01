@@ -1,11 +1,31 @@
 FROM resin/rpi-raspbian:jessie-20161216
 MAINTAINER Sean Houghton "sean.houghton@gmail.com"
 
-RUN apt-get update && apt-get install -y cdbs libcfitsio3-dev libnova-dev libusb-1.0-0-dev libjpeg-dev libusb-dev libtiff5-dev libftdi-dev fxload libkrb5-dev libcurl4-gnutls-dev libraw-dev libgphoto2-dev libgsl0-dev dkms libboost-regex-dev libgps-dev libdc1394-22-dev
+ARG INDI_VERSION=\*
+
+RUN apt-get update && apt-get install -y \
+		cdbs \
+		dkms \
+		fxload \
+		libboost-regex-dev \
+		libcfitsio3-dev \
+		libcurl4-gnutls-dev \
+		libdc1394-22- \
+		libftdi-dev \
+		libgphoto2-dev \
+		libgps-dev \
+		libgsl0-dev \
+		libjpeg-dev \
+		libkrb5-dev \
+		libnova-dev \
+		libraw-dev \
+		libtiff5-dev \
+		libusb-1.0-0-dev \
+		libusb-dev
 
 COPY ./libindi-rpi.tgz /tmp/libindi.tgz
 RUN cd /tmp && tar xvfz libindi.tgz
-RUN cd /tmp/libindi_1.3.1_rpi && dpkg -i *.deb && rm -r /tmp/libindi_1.3.1_rpi
+RUN cd /tmp/libindi_${INDI_VERSION}_rpi && dpkg -i *.deb && rm -r /tmp/libindi_{INDI_VERSION}_rpi
 
 EXPOSE 7624
 ENTRYPOINT ["/usr/bin/indiserver", "-v"]
