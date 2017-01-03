@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./libindi-rpi.tgz /tmp/libindi.tgz
 RUN cd /tmp && tar xvfz libindi.tgz
-RUN cd /tmp/libindi_${INDI_VERSION}_rpi && dpkg -i *.deb && rm -r /tmp/libindi_{INDI_VERSION}_rpi
+RUN cd /tmp/libindi_${INDI_VERSION}_rpi && dpkg -i *.deb && rm -rf /tmp/libindi_${INDI_VERSION}_rpi && rm /tmp/libindi.tgz
 
 EXPOSE 7624
 ENTRYPOINT ["/usr/bin/indiserver", "-v"]
